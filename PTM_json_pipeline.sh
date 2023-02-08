@@ -22,6 +22,6 @@ do
   # Extract the name of the modelHub from the file path
   modelHub=$(basename "$(dirname "$(dirname "$(dirname "$file")")")")
 
-  # Call clime command and name output accoring to the modelHub, author, and model
+  # Call clime command and name output according to the modelHub, author, and model
   clime-git-commits-extract -d "$file" -o "$dump_folder"/"$modelHub""_""$author""_""$model".json
 done

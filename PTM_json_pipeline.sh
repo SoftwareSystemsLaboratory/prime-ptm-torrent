@@ -7,6 +7,11 @@ dump_folder=$2
 # Find all the files in the current directory that end in '.git'
 files=$(find "$search_folder" -name "*.git" -type d)
 
+# Log the start of the script
+echo "Starting PTM_json_pipeline.sh"
+start_time=$(date +%s)
+echo "Start Time: $(date +"%Y-%m-%d %H:%M:%S")" >> "$dump_folder"/PTM_json_pipeline.log
+
 # Iterate through all of the found files
 for file in $files
 do
@@ -25,3 +30,11 @@ do
   # Call clime command and name output according to the modelHub, author, and model
   clime-git-commits-extract -d "$file" -o "$dump_folder"/"$modelHub""_""$author""_""$model".json
 done
+
+# Log the end of the script
+end_time=$(date +%s)
+echo "End Time: $(date +"%Y-%m-%d %H:%M:%S")" >> "$dump_folder"/PTM_json_pipeline.log
+
+# Calculate the total time the script took to run
+duration=$((end_time-start_time))
+echo "Total Time: $duration" >> "$dump_folder"/PTM_json_pipeline.log
